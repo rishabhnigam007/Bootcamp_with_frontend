@@ -1,0 +1,97 @@
+POST : localhost:8080/api/v1/createemployee
+
+body -> raw -> json
+
+{
+    "firstName":"rishabh",
+    "lastName":"nigam",
+    "gender":"male",
+    "dob":"1997-02-07",
+    "startDate":"2021-07-24",
+    "qualification":"mca",
+    "address":"kanpur",
+    "panNumber":"ayoo266h",
+    "designation":"analyst",
+    "department":"operation",
+    "endDate":"2026-09-24",
+    "status":"working",
+    "reportingManager":"uttam",
+    "bloodGroup":"a+",
+    "dependents":[
+        {
+            "firstName":"mr. a.k nigam",
+            "lastName":"nigam",
+            "gender":"male",
+            "dob":"1974-08-22",
+            "relationship":"father"
+        },
+        {
+            "firstName":"sudha nigam",
+            "lastName":"nigam",
+            "gender":"female",
+            "dob":"1976-08-22",
+            "relationship":"mother"
+        }
+    ]   
+}
+
+GET : localhost:8080/api/v1/getemployee/1
+
+GET : localhost:8080/api/v1/getemployees
+
+DELETE : localhost:8080/api/v1/deleteEmployee/1
+
+PUT : localhost:8080/api/v1/updateemployee/1
+
+body -> raw -> json
+
+{
+    "firstName":"rishu",
+    "lastName":"nigam",
+    "gender":"male",
+    "dob":"1997-02-07",
+    "startDate":"2021-07-24",
+    "qualification":"mca",
+    "address":"kanpur",
+    "panNumber":"ayoooo",
+    "designation":"analyst",
+    "department":"operation",
+    "endDate":"2026-09-24",
+    "status":"working",
+    "reportingManager":"chandra",
+    "bloodGroup":"a+",
+    "dependents":[
+        {
+            "firstName":"mr. a.k nigam",
+            "lastName":"nigam",
+            "gender":"male",
+            "dob":"1974-08-22",
+            "relationship":"father"
+        },
+        {
+            "firstName":"sudha nigam",
+            "lastName":"nigam",
+            "gender":"female",
+            "dob":"1976-08-22",
+            "relationship":"mother"
+        }
+    ]   
+}
+
+GET : localhost:8080/api/v1/getdependant/13
+
+GET : localhost:8080/api/v1/getdependants
+
+GET : localhost:8080/api/v1/getemployeeByReportingManager/chandra
+
+PUT : localhost:8080/api/v1/updatedependant/29
+
+body -> raw -> json
+
+{
+    "firstName":"sudha",
+    "lastName":"nigam",
+    "gender":"female",
+    "dob":"1997-08-22",
+    "relationship":"sudha nigam"
+}

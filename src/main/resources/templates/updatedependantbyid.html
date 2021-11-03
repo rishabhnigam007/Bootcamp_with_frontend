@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  xmlns:th="http://www.thymeleaf.org"
+  th:replace="base::Layout(~{::section})"
+>
+  <head>
+    <meta charset="ISO-8859-1" />
+    <title>Update Dependant</title>
+  </head>
+  <body>
+    <section
+      class="updatebanner d-flexjustify-content-center align-items-center"
+    >
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+      <div align="center">
+        <button class="btn btn-dark disabled">Update Dependant By ID :</button>
+        <input type="text" id="dependantid" placeholder="Enter Dependant ID" />
+        <button
+          type="submit"
+          class="btn btn-primary mt-2 mb-2 text-white btn-block"
+          id="fetchdependantbutton"
+        >
+          Fetch Dependant By ID
+        </button>
+      </div>
+
+	<div class="hidden" id="chk">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-8 offset-md-2">
+            <div class="my-card mt-2">
+              <h2 class="text-center">
+                <i class="fas fa-user-edit"></i> Update Dependant
+              </h2>
+              <form
+                id="register"
+                name="register"
+                method="post"
+                onsubmit="return validateForm()"
+              >
+                <div class="row">
+                  <div class="col">
+                    <label for="firstName_field">First Name</label
+                    ><input
+                      name="firstName"
+                      type="text"
+                      class="form-control"
+                      id="firstName"
+                      aria-describedby="emailHelp"
+                      placeholder="Enter your First Name"
+                      required
+                    />
+                    <div class="error" id="firstNameErr"></div>
+                  </div>
+
+                  <div class="col">
+                    <label for="lastName_field">Last Name</label
+                    ><input
+                      name="lastName"
+                      type="text"
+                      class="form-control"
+                      id="lastName"
+                      aria-describedby="emailHelp"
+                      placeholder="Enter your Last Name"
+                      required
+                    />
+                    <div class="error" id="lastNameErr"></div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col">
+                    <label for="gender_field">Gender</label
+                    ><input
+                      name="gender"
+                      type="text"
+                      class="form-control"
+                      id="gender"
+                      aria-describedby="emailHelp"
+                      placeholder="Enter your Gender"
+                      required
+                    />
+                  </div>
+
+                  <div class="col">
+                    <label for="dob_field">DOB</label
+                    ><input
+                      name="dob"
+                      type="date"
+                      class="form-control"
+                      id="dob"
+                      aria-describedby="emailHelp"
+                      placeholder="Enter your DOB"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col">
+                    <label for="relationship_field">Relatioship</label
+                    ><input
+                      name="relationship"
+                      type="text"
+                      class="form-control"
+                      id="relationship"
+                      aria-describedby="emailHelp"
+                      placeholder="Enter your Relationship"
+                      required
+                    />
+                    <div class="error" id="relationshipErr"></div>
+                  </div>
+                </div>
+
+                <div class="container text-center mt-4">
+                  <button
+                    type="submit"
+                    class="btn btn-success text-white btn-block"
+                  >
+                    Update
+                  </button>
+                  <button
+                    type="reset"
+                    class="btn btn-danger text-white btn-block"
+                  >
+                    Reset
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+	</div>
+      <script>
+        $(document).ready(function () {
+        // This is for Form hidding
+          $("#chk").hide();
+		// Fetching dependant on click event
+          $("#fetchdependantbutton").click(function fetchDependantById() {
+            // Do GET
+        	  $.ajax({
+              url: "/api/v1/getdependant/" + $("#dependantid").val(),
+              type: "GET",
+              contentType: "application/json",
+              success: function (data) {
+                if (Array.isArray(data) && data.length > 0) {
+                  // This is for show Form
+                	$("#chk").show(1000);
+
+                  $("#register").submit(function (event) {
+                    event.preventDefault();
+                    ajaxPost();
+                  });
+                  function ajaxPost() {
+                    var formData = {
+                      firstName: $("#firstName").val(),
+                      lastName: $("#lastName").val(),
+                      gender: $("#gender").val(),
+                      dob: $("#dob").val(),
+                      relationship: $("#relationship").val(),
+                    };
+                    // Do PUT
+                    $.ajax({
+                      type: "PUT",
+                      contentType: "application/json",
+                      url: "/api/v1/updatedependant/" + $("#dependantid").val(),
+                      data: JSON.stringify(formData),
+                      dataType: "json",
+                      processData: false,
+                      success: function (data) {
+                        console.log(JSON.stringify(data));
+                        alert("Dependant updated successfully !!");
+                        window.location.reload();
+                      },
+                    });
+                  }
+                } else {
+                  alert("There is no Dependant for updation");
+                  $("#chk").hide();
+                  window.location.reload();
+                }
+              },
+              error: function (e) {
+                alert("No Dependant Found with this ID");
+                $("#chk").hide();
+                window.location.reload();
+              },
+            });
+          });
+        });
+      </script>
+
+      <script>
+        // defining a function to display error
+        function printError(elemId, hintMsg) {
+          document.getElementById(elemId).innerHTML = hintMsg;
+        }
+
+        function submitForm() {
+          document.getElementById("register").submit();
+        }
+
+        // defining a function to validateform
+        function validateForm() {
+          // retrieving the value of form element
+          var firstName = document.register.firstName.value;
+          var lastName = document.register.lastName.value;
+          var gender = document.register.gender.value;
+          var dob = document.register.dob.value;
+          var relationship = document.register.relationship.value;
+
+          // defining error variable with a default value
+          var firstNameErr =
+            (lastNameErr =
+            genderErr =
+            dobErr =
+            relationshipErr =
+              true);
+
+          // validate firstName
+          if (firstName == "") {
+            printError("firstNameErr", "please enter your first name");
+          } else {
+            var regex = /^[a-zA-Z\s]+$/;
+            if (regex.test(firstName) == false) {
+              printError("firstNameErr", "please enter valid first name");
+            } else {
+              printError("firstNameErr", "");
+              firstNameErr = false;
+            }
+          }
+
+          // validate lastName
+          if (lastName == "") {
+            printError("lastNameErr", "please enter your last name");
+          } else {
+            var regex = /^[a-zA-Z\s]+$/;
+            if (regex.test(lastName) == false) {
+              printError("lastNameErr", "please enter valid last name");
+            } else {
+              printError("lastNameErr", "");
+              lastNameErr = false;
+            }
+          }
+
+          // validate relationship
+          if (relationship == "") {
+            printError("relationshipErr", "please enter your relationship");
+          } else {
+            var regex = /^[a-zA-Z\s]+$/;
+            if (regex.test(relationship) == false) {
+              printError("relationshipErr", "please enter valid relationship");
+            } else {
+              printError("relationshipErr", "");
+              relationshipErr = false;
+            }
+          }
+
+          // prevent the form from being submitted if there are many error
+          if ((firstNameErr || lastNameErr || relationshipErr) == true) {
+            return false;
+          } else {
+            // creating a string from input data for preview
+            var dataPreview =
+              "You've entered the following  datails : \n" +
+              "Dependant First Name : " +
+              firstName +
+              "\n" +
+              "Dependant Last Name : " +
+              lastName +
+              "\n";
+            alert(dataPreview);
+            submitForm();
+            alert("Dependant updated successfully !!");
+            window.location.reload();
+          }
+        }
+      </script>
+    </section>
+  </body>
+</html>

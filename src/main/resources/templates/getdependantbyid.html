@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  xmlns:th="http://www.thymeleaf.org"
+  th:replace="base::Layout(~{::section})"
+>
+  <head>
+    <meta charset="ISO-8859-1" />
+    <title>Dependants By ID</title>
+  </head>
+  <body>
+    <section class="banner d-flexjustify-content-center align-items-center">
+      <h1 align="center"><i class="fas fa-address-card"></i></h1>
+      <h3 align="center">Getting Dependant By ID !!</h3>
+      <div align="center">
+        <input type="text" id="dependantid" placeholder="Enter Dependant ID" />
+        <button
+          type="submit"
+          class="btn btn-success mt-2 mb-2 text-white btn-block"
+          id="fetchdependentbutton"
+        >
+          Fetch Dependant By ID
+        </button>
+      </div>
+
+      <script type="text/javascript">
+      	// Fetch dependant by id on click event
+        $("#fetchdependentbutton").click(function () {
+          fetchDependentsById();
+        });
+        // Fetch dependant by id on keypress event
+        $("#dependantid").keypress(function (event) {
+          var keycode = event.keyCode ? event.keyCode : event.which;
+          if (keycode == "13") {
+            fetchDependentsById();
+          }
+        });
+		// This function is for fetching dependant by ID
+        function fetchDependentsById() {
+          $.ajax({
+            url: "/api/v1/getdependant/" + $("#dependantid").val(),
+            type: "GET",
+            contentType: "application/json",
+            success: function (data) {
+              if (Array.isArray(data) && data.length > 0) {
+                $("#getdependantbyid").DataTable({
+                  data: data,
+                  bDestroy: true,
+                  searching: false,
+                  paging: false,
+                  bInfo: false,
+
+                  columns: [
+                    {
+                      data: "dependentID",
+                    },
+                    {
+                      data: "firstName",
+                    },
+                    {
+                      data: "lastName",
+                    },
+                    {
+                      data: "gender",
+                    },
+                    {
+                      data: "relationship",
+                    },
+                    {
+                      data: "dob",
+                    },
+                  ],
+                });
+              } else {
+                $("#getdependantbyid").DataTable().clear();
+              }
+            },
+            error: function (e) {
+              alert("No Dependant Found with this ID");
+            },
+          });
+        }
+      </script>
+
+      <div class="container">
+        <div class="card">
+          <div class="card-body table-responsive">
+            <table
+              id="getdependantbyid"
+              class="table table-info table-hover table-striped"
+            >
+              <thead class="table-dark">
+                <tr>
+                  <th scope="col">ID</th>
+                  <th scope="col">FIRST NAME</th>
+                  <th scope="col">LAST NAME</th>
+                  <th scope="col">GENDER</th>
+                  <th scope="col">RELATIONSHIP</th>
+                  <th scope="col">DOB</th>
+                </tr>
+              </thead>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>

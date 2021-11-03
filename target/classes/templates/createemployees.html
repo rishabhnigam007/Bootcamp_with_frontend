@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  xmlns:th="http://www.thymeleaf.org"
+  th:replace="base::Layout(~{::section})"
+>
+  <head>
+    <meta charset="ISO-8859-1" />
+    <title>Register Employee</title>
+  </head>
+  <body>
+    <section
+      class="registerbanner d-flexjustify-content-center align-items-center"
+    >
+      <!-- <h1 align="center">Register Employee !!</h1> -->
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+      <div class="container">
+        <div class="row">
+          <div class="col-md-8 offset-md-2">
+            <div class="my-card mt-2">
+              <h2 class="text-center">
+                <i class="fas fa-user-secret"></i> Register Employee
+              </h2>
+              <form
+                id="register"
+                name="register"
+                method="post"
+                onsubmit="return validateForm()"
+              >
+                <div class="row">
+                  <div class="col">
+                    <label for="firstName_field">First Name</label
+                    ><input
+                      name="firstName"
+                      type="text"
+                      class="form-control"
+                      id="firstName"
+                      aria-describedby="emailHelp"
+                      placeholder="Enter your First Name"
+                      required
+                    />
+                    <div class="error" id="firstNameErr"></div>
+                  </div>
+
+                  <div class="col">
+                    <label for="lastName_field">Last Name</label
+                    ><input
+                      name="lastName"
+                      type="text"
+                      class="form-control"
+                      id="lastName"
+                      aria-describedby="emailHelp"
+                      placeholder="Enter your Last Name"
+                      required
+                    />
+                    <div class="error" id="lastNameErr"></div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col">
+                    <label for="gender_field">Gender</label
+                    ><input
+                      name="gender"
+                      type="text"
+                      class="form-control"
+                      id="gender"
+                      aria-describedby="emailHelp"
+                      placeholder="Enter your Gender"
+                      required
+                    />
+                  </div>
+
+                  <div class="col">
+                    <label for="dob_field">DOB</label
+                    ><input
+                      name="dob"
+                      type="date"
+                      class="form-control"
+                      id="dob"
+                      aria-describedby="emailHelp"
+                      placeholder="Enter your DOB"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col">
+                    <label for="startDate_field">Start Date</label
+                    ><input
+                      name="startDate"
+                      type="date"
+                      class="form-control"
+                      id="startDate"
+                      aria-describedby="emailHelp"
+                      placeholder="Enter your Start-Date"
+                      required
+                    />
+                  </div>
+
+                  <div class="col">
+                    <label for="endDate_field">End Date</label
+                    ><input
+                      name="endDate"
+                      type="date"
+                      class="form-control"
+                      id="endDate"
+                      aria-describedby="emailHelp"
+                      placeholder="Enter your End-Date"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col">
+                    <label for="qualification_field">Qualification</label
+                    ><input
+                      name="qualification"
+                      type="text"
+                      class="form-control"
+                      id="qualification"
+                      aria-describedby="emailHelp"
+                      placeholder="Enter your Qualification"
+                      required
+                    />
+                    <div class="error" id="qualificationErr"></div>
+                  </div>
+
+                  <div class="col">
+                    <label for="address_field">Address</label
+                    ><input
+                      name="address"
+                      type="text"
+                      class="form-control"
+                      id="address"
+                      aria-describedby="emailHelp"
+                      placeholder="Enter your Address"
+                      required
+                    />
+                    <div class="error" id="addressErr"></div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col">
+                    <label for="panNumber_field">Pan Number</label
+                    ><input
+                      name="panNumber"
+                      type="text"
+                      class="form-control"
+                      id="panNumber"
+                      aria-describedby="emailHelp"
+                      placeholder="Enter your Pan Number"
+                      required
+                    />
+                    <div class="error" id="panNumberErr"></div>
+                  </div>
+
+                  <div class="col">
+                    <label for="designation_field">Designation</label
+                    ><input
+                      name="designation"
+                      type="text"
+                      class="form-control"
+                      id="designation"
+                      aria-describedby="emailHelp"
+                      placeholder="Enter your Designation"
+                      required
+                    />
+                    <div class="error" id="designationErr"></div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col">
+                    <label for="department_field">Department</label
+                    ><input
+                      name="department"
+                      type="text"
+                      class="form-control"
+                      id="department"
+                      aria-describedby="emailHelp"
+                      placeholder="Enter your Department"
+                      required
+                    />
+                    <div class="error" id="departmentErr"></div>
+                  </div>
+
+                  <div class="col">
+                    <label for="status_field">Status</label
+                    ><input
+                      name="status"
+                      type="text"
+                      class="form-control"
+                      id="status"
+                      aria-describedby="emailHelp"
+                      placeholder="Enter your Status"
+                      required
+                    />
+                    <div class="error" id="statusErr"></div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col">
+                    <label for="reportingManager_field">Reporting Manager</label
+                    ><input
+                      name="reportingManager"
+                      type="text"
+                      class="form-control"
+                      id="reportingManager"
+                      aria-describedby="emailHelp"
+                      placeholder="Enter your Reporting Manager"
+                      required
+                    />
+                    <div class="error" id="reportingManagerErr"></div>
+                  </div>
+
+                  <div class="col">
+                    <label for="bloodGroup_field">Blood Group</label
+                    ><input
+                      name="bloodGroup"
+                      type="text"
+                      class="form-control"
+                      id="bloodGroup"
+                      aria-describedby="emailHelp"
+                      placeholder="Enter your bloodGroup"
+                      required
+                    />
+                    <div class="error" id="bloodGroupErr"></div>
+                  </div>
+                </div>
+
+                <div class="container text-center mt-4">
+                  <button
+                    type="submit"
+                    class="btn btn-success text-white btn-block"
+                  >
+                    Submit
+                  </button>
+                  <button
+                    type="reset"
+                    class="btn btn-danger text-white btn-block"
+                  >
+                    Reset
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        $(document).ready(function () {
+          // submit form
+          // id = "register"
+          $("#register").submit(function (event) {
+            event.preventDefault();
+            ajaxPost();
+          });
+          function ajaxPost() {
+            var formData = {
+              firstName: $("#firstName").val(),
+              lastName: $("#lastName").val(),
+              gender: $("#gender").val(),
+              dob: $("#dob").val(),
+              startDate: $("#startDate").val(),
+              endDate: $("#endDate").val(),
+              qualification: $("#qualification").val(),
+              address: $("#address").val(),
+              panNumber: $("#panNumber").val(),
+              designation: $("#designation").val(),
+              department: $("#department").val(),
+              status: $("#status").val(),
+              reportingManager: $("#reportingManager").val(),
+              bloodGroup: $("#bloodGroup").val(),
+            };
+            // Do post
+
+            $.ajax({
+              type: "POST",
+              contentType: "application/json",
+              url: "/api/v1/createemployee",
+              data: JSON.stringify(formData),
+              dataType: "json",
+              processData: false,
+              success: function (data) {
+                console.log(data);
+                alert("Employee created successfully !!");
+                window.location.reload();
+              },
+            });
+          }
+        });
+      </script>
+
+      <script>
+        // defining a function to display error
+        function printError(elemId, hintMsg) {
+          document.getElementById(elemId).innerHTML = hintMsg;
+        }
+
+        function submitForm() {
+          document.getElementById("register").submit();
+        }
+
+        // defining a function to validateform
+        function validateForm() {
+          // retrieving the value of form element
+          var firstName = document.register.firstName.value;
+          var lastName = document.register.lastName.value;
+          var gender = document.register.gender.value;
+          var dob = document.register.dob.value;
+          var startDate = document.register.startDate.value;
+          var endDate = document.register.endDate.value;
+          var qualification = document.register.qualification.value;
+          var address = document.register.address.value;
+          var panNumber = document.register.panNumber.value;
+          var designation = document.register.designation.value;
+          var department = document.register.department.value;
+          var status = document.register.status.value;
+          var reportingManager = document.register.reportingManager.value;
+          var bloodGroup = document.register.bloodGroup.value;
+
+          // defining error variable with a default value
+          var firstNameErr =
+            lastNameErr =
+            genderErr =
+            dobErr =
+            startDateErr =
+            endDateErr =
+            qualificationErr =
+            addressErr =
+            panNumberErr =
+            designationErr =
+            departmentErr =
+            statusErr =
+            reportingManagerErr =
+            bloodGroupErr =
+              true;
+
+          // validate firstName
+          if (firstName == "") {
+            printError("firstNameErr", "please enter your first name");
+          } else {
+            var regex = /^[a-zA-Z\s]+$/;
+            if (regex.test(firstName) == false) {
+              printError("firstNameErr", "please enter valid first name");
+            } else {
+              printError("firstNameErr", "");
+              firstNameErr = false;
+            }
+          }
+
+          // validate lastName
+          if (lastName == "") {
+            printError("lastNameErr", "please enter your last name");
+          } else {
+            var regex = /^[a-zA-Z\s]+$/;
+            if (regex.test(lastName) == false) {
+              printError("lastNameErr", "please enter valid last name");
+            } else {
+              printError("lastNameErr", "");
+              lastNameErr = false;
+            }
+          }
+
+          // validate qualification
+          if (qualification == "") {
+            printError("qualificationErr", "please enter your qualification");
+          } else {
+            var regex = /^[a-zA-Z\s]+$/;
+            if (regex.test(qualification) == false) {
+              printError(
+                "qualificationErr",
+                "please enter valid qualification"
+              );
+            } else {
+              printError("qualificationErr", "");
+              qualificationErr = false;
+            }
+          }
+
+          // validate address
+          if (address == "") {
+            printError("addressErr", "please enter your address");
+          } else {
+            var regex = /^[@a-zA-Z1-9\s]+$/;
+            if (regex.test(address) == false) {
+              printError("addressErr", "please enter valid address");
+            } else {
+              printError("addressErr", "");
+              addressErr = false;
+            }
+          }
+
+          // validate panNumber
+          if (panNumber == "") {
+            printError("panNumberErr", "please enter your panNumber");
+          } else {
+            var regex = /^[@a-zA-Z0-9\s]+$/;
+            if (regex.test(panNumber) == false) {
+              printError("panNumberErr", "please enter valid panNumberess");
+            } else {
+              printError("panNumberErr", "");
+              panNumberErr = false;
+            }
+          }
+
+          // validate designation
+          if (designation == "") {
+            printError("designationErr", "please enter your designation");
+          } else {
+            var regex = /^[@a-zA-Z\s]+$/;
+            if (regex.test(designation) == false) {
+              printError("designationErr", "please enter valid designation");
+            } else {
+              printError("designationErr", "");
+              designationErr = false;
+            }
+          }
+
+          // validate department
+          if (department == "") {
+            printError("departmentErr", "please enter your department");
+          } else {
+            var regex = /^[a-zA-Z\s]+$/;
+            if (regex.test(department) == false) {
+              printError("departmentErr", "please enter valid department");
+            } else {
+              printError("departmentErr", "");
+              departmentErr = false;
+            }
+          }
+
+          // validate status
+          if (status == "") {
+            printError("statusErr", "please enter your status");
+          } else {
+            var regex = /^[a-zA-Z\s]+$/;
+            if (regex.test(status) == false) {
+              printError("statusErr", "please enter valid status");
+            } else {
+              printError("statusErr", "");
+              statusErr = false;
+            }
+          }
+
+          // validate reportingManager
+          if (reportingManager == "") {
+            printError(
+              "reportingManagerErr",
+              "please enter your reportingManager"
+            );
+          } else {
+            var regex = /^[a-zA-Z\s]+$/;
+            if (regex.test(reportingManager) == false) {
+              printError(
+                "reportingManagerErr",
+                "please enter valid reportingManager"
+              );
+            } else {
+              printError("reportingManagerErr", "");
+              reportingManagerErr = false;
+            }
+          }
+
+          // validate bloodGroup
+          if (bloodGroup == "") {
+            printError("bloodGroupErr", "please enter your bloodGroup");
+          } else {
+            var regex = /^[@a-zA-Z0-9\s]+$/;
+            if (regex.test(bloodGroup) == false) {
+              printError("bloodGroupErr", "please enter valid bloodGroup");
+            } else {
+              printError("bloodGroupErr", "");
+              bloodGroupErr = false;
+            }
+          }
+
+          // prevent the form from being submitted if there are many error
+          if (
+            (firstNameErr ||
+              lastNameErr ||
+              qualificationErr ||
+              addressErr ||
+              panNumberErr ||
+              designationErr ||
+              departmentErr ||
+              statusErr ||
+              reportingManagerErr ||
+              bloodGroupErr) == true
+          ) {
+            return false;
+          } else {
+            // creating a string from input data for preview
+            var dataPreview =
+              "You've entered the following  datails : \n" +
+              "Employee Name : " +
+              firstName +
+              "\n" +
+              "Employee designation : " +
+              designation +
+              "\n";
+            alert(dataPreview);
+            submitForm();
+            alert("Employee created successfully !!");
+            window.location.reload();
+          }
+        }
+      </script>
+    </section>
+  </body>
+</html>

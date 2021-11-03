@@ -1,0 +1,7 @@
+com.icf.bootcamp
+com.icf.bootcamp.controller
+com.icf.bootcamp.exception
+com.icf.bootcamp.model
+com.icf.bootcamp.repository
+com.icf.bootcamp.service
+com.icf.bootcamp.service.impl

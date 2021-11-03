@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html
+  lang="en"
+  xmlns:th="http://www.thymeleaf.org"
+  th:replace="base::Layout(~{::section})"
+>
+  <head>
+    <meta charset="ISO-8859-1" />
+    <title>Delete Employee By ID</title>
+  </head>
+  <body>
+    <section class="banner d-flexjustify-content-center align-items-center">
+      <h3 align="center">
+        <i class="fas fa-user-slash"></i> Deleting Employee By ID !!
+      </h3>
+      <div align="center">
+        <input type="text" id="employeeid" placeholder="Enter Employee ID" />
+        <button
+          id="fetchemployeebutton"
+          type="submit"
+          class="btn btn-success mt-2 mb-2 text-white btn-block"
+        >
+          Fetch Employee By ID
+        </button>
+      </div>
+
+      <script type="text/javascript">
+        $("#fetchemployeebutton").click(function () {
+          fetchEmployeeById();
+        });
+        $("#employeeid").keypress(function (event) {
+          var keycode = event.keyCode ? event.keyCode : event.which;
+          if (keycode == "13") {
+            fetchEmployeeById();
+          }
+        });
+		// This function is fetching Employee by ID
+        function fetchEmployeeById() {
+          swal({
+            title: "Are you sure?",
+            text: "You want to delete this Employee..",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+          }).then((willDelete) => {
+            if (willDelete) {
+              $.ajax({
+                url: "/api/v1/deleteEmployee/" + $("#employeeid").val(),
+                type: "DELETE",
+                contentType: "application/json",
+                success: function (data) {
+                  if (Array.isArray(data) && data.length > 0) {
+                    $("#employeebyid").DataTable({
+                      data: data,
+                      bDestroy: true,
+                      searching: false,
+                      paging: false,
+                      bInfo: false,
+                      columns: [
+                        {
+                          data: "employeeID",
+                        },
+                        {
+                          data: "firstName",
+                        },
+                        {
+                          data: "lastName",
+                        },
+                        {
+                          data: "gender",
+                        },
+                        {
+                          data: "dob",
+                        },
+                        {
+                          data: "startDate",
+                        },
+                        {
+                          data: "endDate",
+                        },
+                        {
+                          data: "qualification",
+                        },
+                        {
+                          data: "address",
+                        },
+                        {
+                          data: "panNumber",
+                        },
+                        {
+                          data: "designation",
+                        },
+                        {
+                          data: "department",
+                        },
+                        {
+                          data: "status",
+                        },
+                        {
+                          data: "reportingManager",
+                        },
+                        {
+                          data: "bloodGroup",
+                        },
+                      ],
+                    });
+                  } else {
+                    $("#employeebyid").DataTable().clear();
+                  }
+                  alert("Employee Deleted Successfully with this ID !!");
+                },
+                error: function (e) {
+                  alert("No Employee Found with this ID");
+                },
+              });
+            } else {
+              swal("Your Employee is safe !!");
+            }
+          });
+        }
+      </script>
+
+      <div class="container">
+        <div class="card">
+          <div class="card-body table-responsive">
+            <table
+              id="employeebyid"
+              class="table table-info table-hover table-striped"
+            >
+              <thead class="table-dark">
+                <tr>
+                  <th scope="col">ID</th>
+                  <th scope="col">FIRST NAME</th>
+                  <th scope="col">LAST NAME</th>
+                  <th scope="col">GENDER</th>
+                  <th scope="col">DOB</th>
+                  <th scope="col">START DATE</th>
+                  <th scope="col">END DATE</th>
+                  <th scope="col">QUALIFICATION</th>
+                  <th scope="col">ADDRESS</th>
+                  <th scope="col">PAN NUMBER</th>
+                  <th scope="col">DESIGNATION</th>
+                  <th scope="col">DEPARTMENT</th>
+                  <th scope="col">STATUS</th>
+                  <th scope="col">REPORTING MANAGER</th>
+                  <th scope="col">BLOOD GROUP</th>
+                </tr>
+              </thead>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>
